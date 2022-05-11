@@ -111,7 +111,7 @@ async def countyPassRate(county):
             {
                 "id" : county,
                 "x" : year,
-                "y" : round( passed / all, 2)
+                "y" : round( passed / all, 4) 
             }
         )
 
@@ -123,7 +123,7 @@ async def generation():
 
     # previous generation
     for year, value in data.items():
-        tmp = value[value['previous_prom'] == True]
+        tmp = value[value['previous_prom'] != True]
 
         passed_list = tmp[tmp['passed'] == True]
 
@@ -141,7 +141,7 @@ async def generation():
 
     # current generation
     for year, value in data.items():
-        tmp = value[value['previous_prom'] == False]
+        tmp = value[value['previous_prom'] != False]
 
         passed_list = tmp[tmp['passed'] == True]
 
