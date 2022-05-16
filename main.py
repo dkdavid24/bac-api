@@ -16,9 +16,7 @@ data = {
 
 app = FastAPI();
 
-origins = [
-    "http://localhost:3000"
-]
+origins = ['*']
 
 app.add_middleware(
     CORSMiddleware,
@@ -104,6 +102,8 @@ async def countyPassRate(county):
         passed_list = tmp[tmp['passed'] == True]
 
         all = len(tmp)
+        if all == 0:
+            return []
 
         passed = len(passed_list)
 
@@ -238,7 +238,7 @@ async def subjectPassRate():
 
         result.append(
             {
-                "id" : "Nat",
+                "id" : "NAT",
                 "x" : year,
                 "y" : round(perc, 2)
             }
