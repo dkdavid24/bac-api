@@ -83,13 +83,14 @@ async def countyByYear(county):
             tmp[tmp['avg'].notnull()].avg
         )
 
-        result.append(
-            {
-                "id" : county,
-                "x" : year,
-                "y" : round(avg, 2)
-            }
-        )
+        if not np.isnan(avg):
+            result.append(
+                {
+                    "id" : county,
+                    "x" : year,
+                    "y" : round(avg, 2)
+                }
+            )
 
     return result
 
@@ -102,18 +103,17 @@ async def countyPassRate(county):
         passed_list = tmp[tmp['passed'] == True]
 
         all = len(tmp)
-        if all == 0:
-            return []
+        if all != 0:
+            
+            passed = len(passed_list)
 
-        passed = len(passed_list)
-
-        result.append(
-            {
-                "id" : county,
-                "x" : year,
-                "y" : round( passed / all, 4) 
-            }
-        )
+            result.append(
+                {
+                    "id" : county,
+                    "x" : year,
+                    "y" : round( passed / all, 4) 
+                }
+            )
 
     return result
 
